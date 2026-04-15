@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>白榆 · 手机容器双幕体验</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="phone">
+    <div class="app-container">
+        <!-- page1: 锁屏界面 -->
+        <div class="lock-screen" id="lockScreen">
+            <div class="lock-time" id="liveClock">--:--</div>
+            <div class="notifications-area">
+                <div class="notif-card" data-card="msg1">
+                    <div class="card-main wechat-msg">
+                        <div class="avatar-placeholder avatar-baiye">白</div>
+                        <div class="msg-content">
+                            <div class="msg-header">
+                                <span class="msg-name">白也</span>
+                                <span class="msg-time" id="msgTime1">19:30</span>
+                            </div>
+                            <div class="msg-text">小榆，到家了跟我说一声，给你留了灯。</div>
+                        </div>
+                    </div>
+                    <div class="card-expand">
+                        <div class="full-message">白也：冰箱里有布丁，记得吃。</div>
+                    </div>
+                </div>
+                <div class="notif-card" data-card="msg2">
+                    <div class="card-main wechat-msg">
+                        <div class="avatar-placeholder avatar-jichen">季</div>
+                        <div class="msg-content">
+                            <div class="msg-header">
+                                <span class="msg-name">季尘安</span>
+                                <span class="msg-time" id="msgTime2">19:28</span>
+                            </div>
+                            <div class="msg-text">榆儿，周末有比赛，来看吗？给你留了前排票。</div>
+                        </div>
+                    </div>
+                    <div class="card-expand">
+                        <div class="full-message">季尘安：决赛打VG，你来加油我肯定能赢。</div>
+                    </div>
+                </div>
+                <div class="notif-card" data-card="delivery">
+                    <div class="card-main delivery-card">
+                        <div class="delivery-icon">🍜</div>
+                        <div class="delivery-info">
+                            <div class="delivery-store">椿屋·茶泡饭</div>
+                            <div class="eta">预计 19:42 送达</div>
+                        </div>
+                        <div style="font-size:0.6rem;">配送中</div>
+                    </div>
+                    <div class="card-expand">
+                        <div class="delivery-detail">
+                            <div class="delivery-item"><span>套餐内容</span><span>招牌茶泡饭</span></div>
+                            <div class="delivery-item"><span>骑手</span><span>王师傅</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-card" data-card="news">
+                    <div class="card-main news-card">
+                        <div class="news-header">
+                            <span class="news-icon">📰</span>
+                            <span class="news-label">实时热点</span>
+                        </div>
+                        <div class="news-title" id="newsTitle">加载中...</div>
+                        <div class="news-source" id="newsSource"></div>
+                    </div>
+                    <div class="card-expand">
+                        <div class="news-full-content" id="newsFullContent"></div>
+                    </div>
+                </div>
+                <div class="notif-card" data-card="music">
+                    <div class="card-main music-player" id="musicPlayerWidget">
+                        <div class="music-cover"></div>
+                        <div class="music-info">
+                            <div class="music-title">生物钟 (Time Zone)</div>
+                            <div class="music-artist">概念黁</div>
+                        </div>
+                        <div class="play-icon" id="playPauseIcon">▶</div>
+                    </div>
+                    <div class="card-expand">
+                        <div class="music-lyrics">时针逆向航行 / 困在你给的时区</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tree-ring-container" id="treeRingContainer">
+            <div class="tree-ring-btn" id="treeRingBtn">
+                <svg class="tree-ring-svg" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="42" stroke="#ccc" stroke-width="1.2"/>
+                    <circle cx="50" cy="50" r="34" stroke="#bbb" stroke-width="1" stroke-dasharray="3 2"/>
+                    <circle cx="50" cy="50" r="26" stroke="#aaa"/>
+                    <circle cx="50" cy="50" r="18" stroke="#999" stroke-dasharray="2 3"/>
+                    <circle cx="50" cy="50" r="10" stroke="#888" stroke-width="1.5"/>
+                    <path d="M50 8 Q60 30 42 50 Q30 70 50 92" stroke="#aaa" stroke-width="0.6"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="virus-animation" id="virusAnimation">
+            <div class="virus-noise"></div>
+            <div class="virus-codes" id="virusCodes"></div>
+            <div class="virus-love" id="virusLove"></div>
+        </div>
+
+        <div class="cyber-lock-screen" id="cyberLock">
+            <div class="close-btn" id="closeCyberBtn">✕</div>
+            <canvas id="codeRainCanvas"></canvas>
+            <div id="yandereBarrageContainer" style="position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:33;"></div>
+            <div id="errorBarrageContainer" style="position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:34;"></div>
+            <div class="keypad">
+                <div id="errorMessageContainer"></div>
+                <div class="keypad-grid" id="numPad"></div>
+                <div class="password-status" id="pwdStatus">输入密码 1314</div>
+            </div>
+        </div>
+
+        <!-- page2: iPhone风格主屏 -->
+        <div class="home-screen-container" id="homeScreenContainer">
+            <div class="iphone-frame">
+                <div class="wallpaper-bg"></div>
+                <div class="home-screen" id="homeScreen">
+                    <div class="screen-slider" id="screenSlider">
+                        <!-- 负一屏 -->
+                        <div class="screen-page" id="firstScreenPage">
+                            <div class="first-screen-bg"></div>
+                            <div class="status-bar">
+                                <span id="statusTime0">9:41</span>
+                                <div class="status-right"><span>91%</span></div>
+                            </div>
+                            <div class="time-widget">
+                                <div class="time-large" id="mainTime0">9:41</div>
+                                <div class="date-small" id="mainDate0">4月14日 周一</div>
+                            </div>
+                            <div class="search-bar"><span>🔍</span><span>搜索</span></div>
+                            <div class="suggestion-card">
+                                <div class="suggestion-title"><span>🕐</span><span>最近使用</span></div>
+                                <div class="suggestion-items" id="recentApps"></div>
+                            </div>
+                            <div class="section-title">📱 系统应用</div>
+                            <div class="app-grid" id="deletedSysGrid"></div>
+                            <div class="section-title">📲 下载应用</div>
+                            <div class="app-grid" id="deletedDownloadGrid"></div>
+                            <div class="page-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <!-- 第二屏 -->
+                        <div class="screen-page">
+                            <div class="status-bar">
+                                <span id="statusTime1">9:41</span>
+                                <div class="status-right"><span>91%</span></div>
+                            </div>
+                            <div class="time-widget">
+                                <div class="time-large" id="mainTime1">9:41</div>
+                                <div class="date-small" id="mainDate1">4月14日 周一</div>
+                            </div>
+                            <div class="weather-card" id="weatherWidget">
+                                <div class="weather-left">
+                                    <span class="weather-icon" id="weatherIcon">☁️</span>
+                                    <div class="weather-info">
+                                        <span class="weather-temp" id="weatherTemp">19°</span>
+                                        <span class="weather-desc" id="weatherDesc">多云</span>
+                                    </div>
+                                </div>
+                                <div class="weather-location">📍 A市</div>
+                            </div>
+                            <div class="page-dots">
+                                <span class="dot"></span>
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                            <div class="app-grid" id="appGrid1"></div>
+                        </div>
+                        <!-- 第三屏 -->
+                        <div class="screen-page">
+                            <div class="status-bar">
+                                <span id="statusTime2">9:41</span>
+                                <div class="status-right"><span>91%</span></div>
+                            </div>
+                            <div class="time-widget">
+                                <div class="time-large" id="mainTime2">9:41</div>
+                                <div class="date-small" id="mainDate2">4月14日 周一</div>
+                            </div>
+                            <div class="page-dots">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                            </div>
+                            <div class="app-grid" id="appGrid2"></div>
+                            <div class="folder-container" id="gameFolderContainer"></div>
+                        </div>
+                        <!-- 第四屏 -->
+                        <div class="screen-page">
+                            <div class="status-bar">
+                                <span id="statusTime3">9:41</span>
+                                <div class="status-right"><span>91%</span></div>
+                            </div>
+                            <div class="time-widget">
+                                <div class="time-large" id="mainTime3">9:41</div>
+                                <div class="date-small" id="mainDate3">4月14日 周一</div>
+                            </div>
+                            <div class="page-dots">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot active"></span>
+                            </div>
+                            <div class="memo-card">
+                                <div class="memo-title">📝 备忘录</div>
+                                <div class="memo-item">✨ 今天天气很好</div>
+                            </div>
+                            <div class="music-player-widget" id="musicPlayerPage2">
+                                <div class="music-info" style="display:flex; gap:14px; align-items:center;">
+                                    <div class="icon-img" style="width:50px;height:50px;" id="musicCoverSvg"></div>
+                                    <div>
+                                        <div class="music-title" id="songTitle">Way Back Home</div>
+                                        <div class="music-artist" id="songArtist">吉他独奏</div>
+                                    </div>
+                                </div>
+                                <div style="display:flex; justify-content:center; gap:20px; margin-top:12px;">
+                                    <button class="ctrl-btn" id="prevBtn">⏮</button>
+                                    <button class="ctrl-btn play" id="playPauseBtn">▶</button>
+                                    <button class="ctrl-btn" id="nextBtn">⏭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-fixed-area">
+                        <div class="dock-bar">
+                            <div class="app-icon dock-icon" data-page="1">
+                                <div class="icon-img" id="dockPhoneIcon"></div>
+                                <span class="app-label">电话</span>
+                            </div>
+                            <div class="app-icon dock-icon" data-page="2">
+                                <div class="icon-img" id="dockMsgIcon"></div>
+                                <span class="app-label">信息</span>
+                            </div>
+                            <div class="app-icon dock-icon" data-page="3">
+                                <div class="icon-img" id="dockBrowserIcon"></div>
+                                <span class="app-label">浏览器</span>
+                            </div>
+                        </div>
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+                <!-- 通用详情页 -->
+                <div class="detail-page" id="detailPage">
+                    <div class="detail-header">
+                        <div class="back-btn" id="backBtn">←</div>
+                        <div class="detail-title" id="detailTitle">详情</div>
+                    </div>
+                    <div class="detail-content" id="detailContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 备忘录密码弹窗 -->
+<div class="memo-pwd-overlay" id="memoPasswordModal">
+    <div class="memo-pwd-modal">
+        <p id="memoModalTitle">隐私笔记</p>
+        <div id="memoModalSubHint" style="font-size:11px;color:#aaa;margin-bottom:12px;"></div>
+        <input type="password" id="memoPwdInput" placeholder="密码" autocomplete="off">
+        <div>
+            <button id="memoPwdConfirmBtn">确认</button>
+            <button id="memoPwdCancelBtn">取消</button>
+        </div>
+        <div id="memoPwdError" class="memo-error-msg"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
