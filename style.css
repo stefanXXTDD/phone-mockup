@@ -1,0 +1,870 @@
+/* ---------- 全局重置 ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+}
+
+/* 手机外壳容器 */
+.phone {
+    width: 375px;
+    height: 700px;
+    margin: 20px auto;
+    border-radius: 48px;
+    overflow: hidden;
+    background: black;
+    position: relative;
+    box-shadow: 0 30px 50px rgba(0,0,0,0.6), 0 0 0 6px #2c2c2e;
+}
+
+/* 主容器：占满手机内部 */
+.app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+/* ---------- page1: 暗黑赛博锁屏 ---------- */
+.lock-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.postimg.cc/v84HDcdF/65e9655da3fd6b68d125c9038e209289.png') center/cover no-repeat;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition: opacity 0.4s ease;
+    opacity: 1;
+    padding: 40px 16px 20px;
+    overflow-y: auto;
+}
+
+.lock-screen::-webkit-scrollbar { width: 3px; }
+
+.lock-time {
+    font-family: 'CheeseCake', 'Comic Neue', cursive;
+    font-size: 4rem;
+    font-weight: normal;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    padding: 4px 20px;
+    border-radius: 60px;
+    width: fit-content;
+    margin-bottom: 16px;
+}
+
+.notifications-area {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 0 40px 0;
+    padding-bottom: 20px;
+}
+
+.notif-card {
+    background: rgba(20,20,25,0.7);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    border: 0.5px solid rgba(255,255,255,0.15);
+    color: #e0e0e0;
+    transition: all 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card-main { padding: 12px 16px; }
+
+.card-expand {
+    max-height: 0;
+    padding: 0 16px;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.3s ease;
+    border-top: 0px solid rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: #bbb;
+}
+
+.notif-card.expanded .card-expand {
+    max-height: 200px;
+    padding: 12px 16px 16px 16px;
+    border-top-width: 1px;
+}
+
+.wechat-msg { display: flex; align-items: flex-start; gap: 12px; }
+
+.avatar-placeholder {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: bold; color: #fff;
+    background: #3a3a3a; flex-shrink: 0;
+}
+
+.avatar-baiye { background: #4a4a4a; }
+.avatar-jichen { background: #3a3a3a; }
+
+.msg-content { flex: 1; }
+
+.msg-header { display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+.msg-name { font-weight: 600; font-size: 0.85rem; color: #ccc; }
+
+.msg-time { font-size: 0.6rem; color: #888; }
+
+.msg-text { font-size: 0.75rem; opacity: 0.85; }
+
+.full-message { font-size: 0.75rem; margin-top: 4px; color: #ccc; }
+
+.delivery-card .card-main { display: flex; justify-content: space-between; align-items: center; }
+
+.delivery-icon { font-size: 1.5rem; }
+
+.delivery-info { margin-left: 12px; flex:1; }
+
+.delivery-store { font-size: 0.8rem; font-weight: 500; color: #ddd; }
+
+.eta { font-size: 0.6rem; opacity: 0.6; }
+
+.delivery-detail { display: flex; flex-direction: column; gap: 6px; }
+
+.delivery-item { display: flex; justify-content: space-between; font-size: 0.7rem; }
+
+.news-card .news-header { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+
+.news-icon { font-size: 0.8rem; }
+
+.news-label { font-size: 0.7rem; color: #999; }
+
+.news-title { font-size: 0.75rem; line-height: 1.4; color: #ddd; }
+
+.news-source { font-size: 0.6rem; color: #888; margin-top: 6px; }
+
+.news-full-content { font-size: 0.7rem; line-height: 1.5; color: #aaa; }
+
+.music-player { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+
+.music-cover {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: url('https://i.postimg.cc/1Xsn1S4W/05e8a311160dff1db7d9c6f203e7b3b2.png') center/cover;
+    filter: grayscale(0.3);
+}
+
+.music-info { flex:1; }
+
+.music-title { font-size: 0.8rem; font-weight: 500; color: #ddd; }
+
+.music-artist { font-size: 0.6rem; opacity: 0.6; }
+
+.play-icon { font-size: 1.6rem; color: #ccc; }
+
+/* 年轮按钮 */
+.tree-ring-container {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    z-index: 50; display: flex; flex-direction: column; align-items: center;
+    transition: opacity 0.3s;
+}
+
+.tree-ring-container.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.tree-ring-btn {
+    width: 64px; height: 64px; background: rgba(30,30,35,0.85); backdrop-filter: blur(8px);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: 1px solid rgba(255,255,255,0.25);
+    transition: transform 0.1s; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.tree-ring-btn:active { transform: scale(0.95); }
+
+.tree-ring-svg { width: 48px; height: 48px; }
+
+/* 病毒入侵动画 */
+.virus-animation {
+    position: absolute; top:0; left:0; width:100%; height:100%;
+    z-index: 100; pointer-events: none; visibility: hidden;
+}
+
+.virus-animation.active { visibility: visible; animation: virusOverlay 3s ease-out forwards; }
+
+.virus-noise {
+    position: absolute; inset:0;
+    background: repeating-radial-gradient(circle at 20% 30%, rgba(255,0,0,0.1) 0px, rgba(255,0,0,0.06) 2px, transparent 3px, transparent 6px);
+    background-size: 8px 8px; mix-blend-mode: overlay; opacity:0;
+    animation: noiseFlicker 0.15s infinite;
+}
+
+.virus-codes, .virus-love { position: absolute; inset:0; overflow: hidden; }
+
+.code-line, .love-text {
+    position: absolute; white-space: nowrap; font-family: 'Courier New', monospace;
+    font-weight: bold; opacity: 0; animation: fadeInOut 2s ease-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity:0; transform:scale(0.8); }
+    20% { opacity:1; }
+    80% { opacity:1; }
+    100% { opacity:0; transform:scale(1.2); }
+}
+
+@keyframes virusOverlay {
+    0% { opacity:0; }
+    15% { opacity:1; background:rgba(0,0,0,0.7); }
+    85% { opacity:1; }
+    100% { opacity:0; visibility:hidden; }
+}
+
+@keyframes noiseFlicker {
+    0% { opacity:0.3; }
+    100% { opacity:0.7; }
+}
+
+/* 暗黑赛博密码界面 */
+.cyber-lock-screen {
+    position: absolute; inset:0; background-color: #000000; z-index: 30;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+}
+
+.cyber-lock-screen.visible { visibility: visible; opacity: 1; }
+
+.close-btn {
+    position: absolute; top: 20px; left: 20px; z-index: 36;
+    width: 40px; height: 40px; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+    border-radius: 30px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: 0.5px solid rgba(255,255,255,0.3);
+    font-size: 1.2rem; color: rgba(255,255,255,0.7);
+}
+
+#codeRainCanvas { position: absolute; inset:0; width:100%; height:100%; z-index:32; opacity:0.35; pointer-events: none; }
+
+.yandere-barrage {
+    position: absolute; white-space: nowrap; pointer-events: none; z-index:33;
+    font-family: 'Courier New', monospace; font-size:20px; font-weight:bold;
+    color: rgba(255,255,255,1); animation: yandereFloat 14s linear infinite; opacity:0;
+}
+
+@keyframes yandereFloat {
+    0% { transform:translateX(100%); opacity:0; }
+    10% { opacity:1; }
+    90% { opacity:1; }
+    100% { transform:translateX(-100%); opacity:0; }
+}
+
+.error-barrage {
+    position: absolute; white-space: nowrap; pointer-events: none; z-index:34;
+    font-family: 'Courier New', monospace; font-weight: bold;
+    animation: errorFloat 8s linear forwards; opacity:0;
+}
+
+@keyframes errorFloat {
+    0% { transform:translateX(100%); opacity:0; }
+    15% { opacity:1; }
+    85% { opacity:1; }
+    100% { transform:translateX(-100%) translateY(-20px); opacity:0; }
+}
+
+.keypad {
+    position: relative; z-index:35; background: rgba(8,8,12,0.75); backdrop-filter: blur(16px);
+    border-radius: 48px; padding: 20px 12px; width: 260px;
+    border: 0.5px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.keypad-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; justify-items: center; }
+
+.key {
+    background: rgba(15,15,20,0.7); width: 64px; height: 64px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; font-weight:500; font-family: monospace;
+    color: rgba(255,255,255,0.85); border: 0.5px solid rgba(255,255,255,0.25);
+    cursor: pointer; backdrop-filter: blur(4px);
+    transition: all 0.1s ease;
+}
+
+.key:active { transform: scale(0.94); background: rgba(80,80,90,0.7); border-color: rgba(255,100,100,0.6); }
+
+.error-message {
+    text-align:center; font-family: monospace; font-size:0.85rem; font-weight:bold;
+    color:#ff3333; background:rgba(0,0,0,0.7); padding:6px 12px; border-radius:30px;
+    margin-bottom:12px; backdrop-filter:blur(4px);
+}
+
+.password-status {
+    margin-top:18px; text-align:center; font-family: monospace; font-size:0.75rem;
+    background:rgba(0,0,0,0.5); padding:5px 10px; border-radius:30px;
+    color:rgba(255,100,100,0.8);
+}
+
+.error-shake { animation: shakeErr 0.2s ease-in-out 0s 2; }
+
+@keyframes shakeErr {
+    0% { transform:translateX(0); }
+    25% { transform:translateX(-4px); }
+    75% { transform:translateX(4px); }
+    100% { transform:translateX(0); }
+}
+
+/* ---------- page2: iPhone主屏 ---------- */
+.home-screen-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+}
+
+.iphone-frame {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.wallpaper-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.postimg.cc/v84HDcdF/65e9655da3fd6b68d125c9038e209289.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.home-screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.screen-slider {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.screen-slider::-webkit-scrollbar { display: none; }
+
+.screen-page {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+    padding: 0 14px;
+    position: relative;
+}
+
+.screen-page::-webkit-scrollbar { display: none; }
+
+.first-screen-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.postimg.cc/bJ0cnsLT/df61f6405a155d8c0384369ea1631521.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+    filter: blur(12px) brightness(0.85);
+    border-radius: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.screen-page:first-child {
+    position: relative;
+    background: rgba(0,0,0,0.15);
+}
+
+.screen-page:first-child > *:not(.first-screen-bg) {
+    position: relative;
+    z-index: 2;
+}
+
+.status-bar {
+    padding: 12px 4px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.time-widget { padding: 6px 4px 10px; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+
+.time-large { font-size: 48px; font-weight: 300; line-height: 1; }
+
+.date-small { font-size: 14px; font-weight: 400; opacity: 0.9; margin-top: 4px; }
+
+.weather-card {
+    margin: 0 0 14px; padding: 10px 14px; background: rgba(120,100,80,0.25);
+    backdrop-filter: blur(40px); border-radius: 20px; display: flex;
+    align-items: center; justify-content: space-between; color: white;
+    cursor: pointer; border: 0.5px solid rgba(255,255,255,0.2);
+}
+
+.weather-left { display: flex; gap:10px; align-items: center; }
+
+.weather-icon { font-size:26px; }
+
+.weather-temp { font-size:22px; font-weight:500; }
+
+.weather-desc { font-size:12px; opacity:0.8; }
+
+.weather-location { background: rgba(255,255,255,0.12); padding:4px 12px; border-radius:30px; font-size:12px; }
+
+.page-dots { display: flex; justify-content: center; gap: 8px; margin: 8px 0 12px; }
+
+.dot { width:6px; height:6px; border-radius:10px; background:rgba(255,255,255,0.4); transition:all 0.25s; }
+
+.dot.active { background:white; width:18px; }
+
+.search-bar {
+    margin: 0 0 14px; padding:8px 14px; background: rgba(120,100,80,0.25);
+    backdrop-filter: blur(40px); border-radius:20px; display: flex; gap:8px;
+    color: rgba(255,255,255,0.7); border:0.5px solid rgba(255,255,255,0.15);
+    font-size:14px;
+}
+
+.section-title {
+    color:white; font-size:17px; font-weight:600; margin:14px 0 10px;
+    text-shadow:0 2px 6px rgba(0,0,0,0.4);
+}
+
+.app-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px;
+    justify-items: center; margin-bottom:14px;
+}
+
+.app-icon {
+    display: flex; flex-direction: column; align-items: center;
+    cursor: pointer; transition: transform 0.12s;
+}
+
+.icon-img {
+    width: 56px; height:56px; border-radius: 16px; background: rgba(128,128,128,0.7);
+    backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); border:0.5px solid rgba(255,255,255,0.25);
+    margin-bottom:4px;
+}
+
+.app-label {
+    color:white; text-shadow:0 1px 6px rgba(0,0,0,0.6);
+    font-size:10px; font-weight:500; text-align:center;
+}
+
+.suggestion-card {
+    background: rgba(120,100,80,0.25); backdrop-filter: blur(40px);
+    border-radius:20px; padding:14px; margin-bottom:14px; color:white;
+    border:0.5px solid rgba(255,255,255,0.15);
+}
+
+.suggestion-title {
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+    font-weight:600; font-size:14px;
+}
+
+.suggestion-items { display:flex; gap:12px; overflow-x:auto; }
+
+.suggestion-item {
+    flex-shrink:0; display:flex; flex-direction: column;
+    align-items: center; gap:4px; cursor:pointer;
+}
+
+.suggestion-item .icon-img { width:48px; height:48px; }
+
+.dock-bar {
+    padding: 8px 14px 6px; background: rgba(120,100,80,0.3); backdrop-filter: blur(40px);
+    border-radius: 32px; display: flex; justify-content: space-around; align-items: center;
+    margin: 0 4px 6px; border:0.5px solid rgba(255,255,255,0.2);
+}
+
+.dock-icon .icon-img { width:52px; height:52px; }
+
+.home-indicator {
+    width:130px; height:4px; background:rgba(255,255,255,0.5);
+    border-radius:20px; margin:0 auto 8px;
+}
+
+.folder-container { margin-bottom:14px; }
+
+.folder-preview {
+    display:flex; align-items:center; gap:10px; padding:8px 14px;
+    background:rgba(120,100,80,0.25); backdrop-filter:blur(40px);
+    border-radius:18px; color:white; cursor:pointer;
+    border:0.5px solid rgba(255,255,255,0.15);
+}
+
+.folder-content { max-height:0; overflow:hidden; transition:max-height 0.3s; }
+
+.folder-content.open { max-height:320px; }
+
+.folder-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:14px;
+    background:rgba(120,100,80,0.2); backdrop-filter:blur(40px);
+    border-radius:24px; margin:8px 0;
+}
+
+.music-player-widget {
+    background: rgba(120,100,80,0.25); backdrop-filter: blur(40px);
+    border-radius: 24px; padding: 14px; margin: 8px 0 14px; color:white;
+}
+
+.memo-card {
+    background: rgba(120,100,80,0.25); backdrop-filter: blur(40px);
+    border-radius:20px; padding:12px 14px; margin-bottom:14px; color:white;
+    border:0.5px solid rgba(255,255,255,0.15); font-size:13px;
+}
+
+/* 详情页 */
+.detail-page {
+    position: absolute; top:0; left:0; width:100%; height:100%;
+    z-index: 60; display: none; flex-direction: column; background: #000;
+}
+
+.detail-page.active { display: flex; }
+
+.detail-header {
+    display:flex; align-items:center; padding:12px 14px;
+    background:#0c0c0c; border-bottom:0.5px solid #2c2c2c;
+}
+
+.back-btn {
+    width:36px; height:36px; border-radius:36px; background:rgba(128,128,128,0.5);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    margin-right:14px; color:white; font-size:20px;
+}
+
+.detail-title { font-size:18px; font-weight:600; color:white; }
+
+.detail-content { flex:1; padding:0; color:white; overflow:hidden; background:#000; }
+
+.ctrl-btn {
+    background:rgba(128,128,128,0.4); border:none; border-radius:40px;
+    width:42px; height:42px; color:white; font-size:18px;
+    cursor:pointer; backdrop-filter:blur(10px); margin:0 4px;
+}
+
+.ctrl-btn:active { transform:scale(0.94); }
+
+/* 备忘录内嵌样式 */
+.memo-embedded {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+}
+
+.memo-embedded .status-bar-placeholder {
+    background-color: #0c0c0c;
+    padding: 8px 16px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #e0e0e0;
+    border-bottom: 0.5px solid #2c2c2c;
+    font-family: monospace;
+}
+
+.memo-embedded .home-container {
+    padding: 14px 14px 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.memo-embedded .app-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #fff;
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.memo-embedded .signature-area {
+    background: #0c0c0c;
+    border-radius: 24px;
+    padding: 8px 14px;
+    margin: 8px 0 14px;
+    border: 0.5px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.memo-embedded .dot-clickable {
+    font-size: 28px;
+    color: #f0f0f0;
+    cursor: pointer;
+    user-select: none;
+    min-width: 36px;
+    text-align: center;
+}
+
+.memo-embedded .signature-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #f0f0f0;
+    font-size: 13px;
+    padding: 6px 0;
+    outline: none;
+    font-family: 'STKaiti', '华文楷书', 'KaiTi', serif;
+    font-weight: bold;
+}
+
+.memo-embedded .new-note-btn {
+    background: #0f0f0f;
+    border: 1px solid #3a3a3c;
+    border-radius: 40px;
+    padding: 8px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.memo-embedded .private-icon-btn {
+    font-size: 18px;
+    margin-bottom: 16px;
+    font-family: monospace;
+}
+
+.memo-embedded .notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.memo-embedded .note-card {
+    background: #0c0c0c;
+    border-radius: 16px;
+    padding: 12px 14px;
+    border: 0.5px solid #2c2c2e;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.memo-embedded .note-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    font-family: monospace;
+}
+
+.memo-embedded .empty-list {
+    text-align: center;
+    padding: 36px 16px;
+    color: #6c6c70;
+    font-size: 13px;
+    border: 1px dashed #2a2a2c;
+    border-radius: 20px;
+}
+
+.memo-embedded .delete-note-icon {
+    font-size: 18px;
+    color: #8e8e93;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 20px;
+}
+
+/* 备忘录详情页内嵌 */
+.memo-detail-embedded {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+}
+
+.memo-detail-embedded .detail-status-bar {
+    background: #0c0c0c;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #2c2c2c;
+}
+
+.memo-detail-embedded .back-home-icon {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.memo-detail-embedded .detail-title-input {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 4px 0;
+    outline: none;
+    border-bottom: 1px dashed #3a3a3c;
+    font-family: monospace;
+    width: 140px;
+}
+
+.memo-detail-embedded .save-detail-btn {
+    background: #1c1c1e;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    color: white;
+    cursor: pointer;
+}
+
+.memo-detail-embedded .detail-content-card {
+    background: #08080a;
+    margin: 14px;
+    border-radius: 20px;
+    padding: 16px 14px;
+    flex: 1;
+    border: 0.5px solid #2c2c2e;
+}
+
+.memo-detail-embedded .detail-body-textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    background: #000;
+    border: 0.5px solid #2e2e32;
+    border-radius: 16px;
+    padding: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #f5f5f7;
+    resize: none;
+    font-family: 'Bradley Hand', 'Chalkboard SE', 'KaiTi', 'cursive';
+    outline: none;
+}
+
+/* 密码弹窗适配 */
+.memo-pwd-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.94);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.memo-pwd-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.memo-pwd-modal {
+    background: #0c0c0c;
+    border-radius: 36px;
+    width: 260px;
+    padding: 24px 20px;
+    border: 0.5px solid #3a3a3c;
+    text-align: center;
+}
+
+.memo-pwd-modal p {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.memo-pwd-modal input {
+    width: 100%;
+    background: #1c1c1e;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 16px;
+    outline: none;
+}
+
+.memo-pwd-modal button {
+    background: #2c2c2e;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    color: white;
+    font-weight: 500;
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+.memo-error-msg {
+    color: #ff9f6e;
+    font-size: 11px;
+    margin-top: 6px;
+}
